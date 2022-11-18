@@ -69,6 +69,7 @@ func ScanPort(ip string, port int, timeout time.Duration, portsMapping map[int]b
 		// TODO: Get more exception strings for major browsers
 		errString := strings.ToLower(err.Error())
 		if strings.Contains(errString, "exceeded while awaiting") ||
+			strings.Contains(errString, "context deadline exceeded") ||
 			strings.Contains(errString, "ssl") ||
 			strings.Contains(errString, "cors") ||
 			strings.Contains(errString, "invalid") ||
