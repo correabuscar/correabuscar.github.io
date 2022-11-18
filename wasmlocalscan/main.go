@@ -39,7 +39,8 @@ func ScanPort(ip string, port int, timeout time.Duration, portsMapping map[int]b
 		Transport: tr,
 		Timeout:   timeout,
 	}
-	target = fmt.Sprintf("https://%s", target)
+	//target = fmt.Sprintf("https://%s", target) // required for target == 0.0.0.0
+	target = fmt.Sprintf("http://%s", target) // goot for target==127.0.0.1
 	req, err := http.NewRequest("GET", target, nil)
 	if err != nil {
 		fmt.Print("Failed to initiate request ", err)
@@ -107,7 +108,8 @@ func (ps *PortScanner) Start(f int, l int, timeout time.Duration, portsMapping m
 func main() {
 	portsMapping := make(map[int]bool)
 	ps := &PortScanner{
-		ip:           "0.0.0.0",
+		//ip:           "0.0.0.0", //required https in firefox, not http, or else it won't make the request(on the specified port at least)
+		ip:           "127.0.0.1",
 		lock:         semaphore.NewWeighted(10),
 		portsMapping: portsMapping,
 	}
