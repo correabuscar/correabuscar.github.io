@@ -9,6 +9,7 @@ const thread = (start, stop, callback) => {
                 callback(port);
                 loop(port + 1);
             }).catch(err => {
+              console.log(err);
                 loop(port + 1);
             });
         }
