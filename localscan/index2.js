@@ -3,6 +3,9 @@
 const thread = (start, stop, callback) => {
     const loop = port => {
         if (port < stop) {
+          //http cannot be used here because Firefox will upgrade it to https and...
+          //Also using https here doesn't allow depecting open port with netcat even if you reply some text before C-c
+          //so it should be http and reply some text via netcat, to can detect it; but can't be http when 0.0.0.0 is used, only when 127.0.0.1 is used.
             fetch('https://0.0.0.0:' + port, {
                 mode: 'no-cors'
             }).then(resp => {
