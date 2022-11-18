@@ -1,1 +1,6 @@
 this is from: https://github.com/avilum/portsscan
+
+needs in Firefox about:config the following to be `true`:
+javascript.options.wasm
+javascript.options.wasm_baselinejit
+
