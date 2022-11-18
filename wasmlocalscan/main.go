@@ -118,7 +118,7 @@ func main() {
 	// ps.Start(1, 65535, 10*time.Millisecond, portsMapping)
 	document := js.Global().Get("document")
 	documentTitle := document.Call("createElement", "h1")
-	documentTitle.Set("innerText", "WebAssembly TCP Port Scanner")
+  documentTitle.Set("innerText", "WebAssembly TCP Port Scanner, src: https://github.com/avilum/portsscan writeup: https://infosecwriteups.com/identify-website-users-by-client-port-scanning-using-webassembly-and-go-e9798b4aa05c")
 	document.Get("body").Call("appendChild", documentTitle)
 	placeHolder := document.Call("createElement", "h3")
 	placeHolder.Set("innerText", "Scanning...")
