@@ -33,5 +33,10 @@ const scanRange = (start, stop, thread_count) => {
 
 window.onload = () => {
     //scanRange(80, 10000, 100);
-    scanRange(80, 443, 10);
+    //scanRange(80, 443, 10);
+  thread(80,81, port => {
+            const el = document.createElement('div');
+            el.innerText = 'Server found at :' + port;
+            document.body.appendChild(el);
+        });
 };
