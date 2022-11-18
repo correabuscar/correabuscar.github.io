@@ -4,11 +4,21 @@
   <script src="wasm_exec.js"></script>
   <script>
     const go = new Go();
+    if (typeof WebAssembly != "undefined") {
     WebAssembly.instantiateStreaming(fetch("main.wasm"), go.importObject)
         .then((result) => {
           go.run(result.instance);
         });
+    } else {
+        document.write("WebAssembly is disabled, in Firefox check that the about:config setting javascript.options.wasm is true");
+    }
     </script>
+    <noscript>
+      <div>
+        You need javascript enabled, and then wasm enabled (we'll detect that).
+    </div>
+    </noscript>
+
 </head>
 <body>
 </body>
