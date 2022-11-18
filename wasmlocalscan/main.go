@@ -109,7 +109,7 @@ func main() {
 	portsMapping := make(map[int]bool)
 	ps := &PortScanner{
 		//ip:           "0.0.0.0", //required https in firefox, not http, or else it won't make the request(on the specified port at least)
-		ip:           "127.0.0.1",
+		ip:           "127.0.0.1", //isn't seen by uMatrix but it is seen by uBlock Origin and allowed by default(hmm...)
 		lock:         semaphore.NewWeighted(10),
 		portsMapping: portsMapping,
 	}

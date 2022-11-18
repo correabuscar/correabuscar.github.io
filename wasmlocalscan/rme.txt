@@ -1,6 +1,13 @@
 this is from: https://github.com/avilum/portsscan
 
 needs in Firefox about:config the following to be `true`:
+
 javascript.options.wasm
-javascript.options.wasm_baselinejit
+
+//javascript.options.wasm_baselinejit
+^ since updating wasm_exec.js, this last one isn't needed anymore because it
+now sees tier2=ion as compiler, before tier2=none
+
+WebAssembly verbose: available wasm compilers: tier1=none tier2=ion
+
 
