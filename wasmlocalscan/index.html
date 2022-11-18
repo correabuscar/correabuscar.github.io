@@ -3,9 +3,6 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"/>
-  <noscript>
-    You need javascript enabled, and then wasm enabled (we'll detect that).
-  </noscript>
   <script src="wasm_exec.js"></script>
   <script>
     const go = new Go();
@@ -21,6 +18,11 @@
 
 </head>
 <body>
+  <noscript>
+    You need javascript enabled, and then wasm enabled (we'll detect that).
+    <!-- FIXME: this is still not displaying! why? maybe need to be in body? 
+    https://developer.mozilla.org/en-US/docs/Web/HTML/Element/noscript -->
+  </noscript>
 </body>
 </html>
 
