@@ -31,5 +31,6 @@ const scanRange = (start, stop, thread_count) => {
 }
 
 window.onload = () => {
-    scanRange(80, 10000, 100);
+    //scanRange(80, 10000, 100);
+    scanRange(80, 443, 10);
 };
