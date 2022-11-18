@@ -26,5 +26,6 @@ for (var a = 0; a < ports.length; a++)
     portsCheck(function(target, port, status) {
 
         /* put the status into the element */
-        element.text(status);
+        element.text(status); //FIXME: error here, see maybe: https://www.w3schools.com/js/js_htmldom_html.asp
+      // Uncaught ReferenceError: element is not defined
     }, "127.0.0.1", ports[a], 1000 /*ms*/);
