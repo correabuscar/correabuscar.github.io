@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Key Press Detection - Multiple Methods</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f4f4f9;
+    }
+    #container {
+      text-align: center;
+    }
+    .keyInfo {
+      font-size: 1.5em;
+      margin-top: 20px;
+    }
+    .keyName {
+      font-size: 2em;
+      color: #333;
+    }
+    .pressed {
+      color: green;
+    }
+    .released {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <h1>Keyboard Event Tracker - Multiple Methods</h1>
+    <div class="keyInfo">
+      <span class="pressed">Last Key Pressed (Event Listener):</span>
+      <span class="keyName" id="pressedKeyListener">None</span>
+    </div>
+    <div class="keyInfo">
+      <span class="pressed">Last Key Pressed (Direct Assignment):</span>
+      <span class="keyName" id="pressedKeyDirect">None</span>
+    </div>
+    <div class="keyInfo">
+      <span class="released">Last Key Released (Event Listener):</span>
+      <span class="keyName" id="releasedKeyListener">None</span>
+    </div>
+    <div class="keyInfo">
+      <span class="released">Last Key Released (Window):</span>
+      <span class="keyName" id="releasedKeyWindow">None</span>
+    </div>
+  </div>
+
+  <script>
+    // Method 1: Using addEventListener on document
+    document.addEventListener('keydown', (event) => {
+      const keyName = event.key;
+      document.getElementById('pressedKeyListener').textContent = `${keyName} (${event.code})`;
+    });
+
+    document.addEventListener('keyup', (event) => {
+      const keyName = event.key;
+      document.getElementById('releasedKeyListener').textContent = `${keyName} (${event.code})`;
+    });
+
+    // Method 2: Using direct assignment (onkeydown and onkeyup)
+    document.onkeydown = (event) => {
+      const keyName = event.key;
+      document.getElementById('pressedKeyDirect').textContent = `${keyName} (${event.code})`;
+    };
+
+    // Method 3: Assigning listener to the window object
+    window.onkeyup = (event) => {
+      const keyName = event.key;
+      document.getElementById('releasedKeyWindow').textContent = `${keyName} (${event.code})`;
+    };
+
+    // Deprecated method: keypress for legacy browsers
+    document.addEventListener('keypress', (event) => {
+      console.log('Key Press (Deprecated):', event.key);
+    });
+  </script>
+</body>
+</html>
+
