@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Key Press Detection - Multiple Methods</title>
+  <title>Complete Keyboard Event Log</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
       height: 100vh;
       margin: 0;
@@ -16,71 +16,156 @@
     }
     #container {
       text-align: center;
+      width: 80%;
+      max-width: 800px;
     }
     .keyInfo {
-      font-size: 1.5em;
+      font-size: 1.2em;
       margin-top: 20px;
     }
-    .keyName {
-      font-size: 2em;
-      color: #333;
+    .logSection {
+      margin-top: 30px;
+      text-align: left;
+      width: 100%;
+      max-height: 400px;
+      overflow-y: auto;
+      border: 1px solid #ddd;
+      padding: 10px;
+      background-color: #fff;
     }
-    .pressed {
-      color: green;
+    .logEntry {
+      margin: 5px 0;
     }
-    .released {
-      color: red;
+    input, button {
+      margin-top: 10px;
     }
   </style>
 </head>
 <body>
   <div id="container">
-    <h1>Keyboard Event Tracker - Multiple Methods</h1>
+    <h1>Complete Keyboard Event Log</h1>
+
     <div class="keyInfo">
-      <span class="pressed">Last Key Pressed (Event Listener):</span>
-      <span class="keyName" id="pressedKeyListener">None</span>
+      <span>Focus on the page or an input field and press keys.</span>
     </div>
-    <div class="keyInfo">
-      <span class="pressed">Last Key Pressed (Direct Assignment):</span>
-      <span class="keyName" id="pressedKeyDirect">None</span>
-    </div>
-    <div class="keyInfo">
-      <span class="released">Last Key Released (Event Listener):</span>
-      <span class="keyName" id="releasedKeyListener">None</span>
-    </div>
-    <div class="keyInfo">
-      <span class="released">Last Key Released (Window):</span>
-      <span class="keyName" id="releasedKeyWindow">None</span>
+
+    <input type="text" id="inputField" placeholder="Focus here and press keys">
+    <button id="testButton">Focus and Press Keys</button>
+
+    <div class="logSection" id="logContainer">
+      <!-- Log entries will be appended here -->
     </div>
   </div>
 
   <script>
+    // Function to create and append a log entry
+    function logEvent(message) {
+      const logContainer = document.getElementById('logContainer');
+      const logEntry = document.createElement('div');
+      logEntry.className = 'logEntry';
+      logEntry.textContent = message;
+      logContainer.appendChild(logEntry);
+
+      // Scroll to the bottom of the log container
+      logContainer.scrollTop = logContainer.scrollHeight;
+    }
+
     // Method 1: Using addEventListener on document
     document.addEventListener('keydown', (event) => {
-      const keyName = event.key;
-      document.getElementById('pressedKeyListener').textContent = `${keyName} (${event.code})`;
+      const message = `Key Down (Document Event Listener): ${event.key} (${event.code})`;
+      logEvent(message);
     });
 
     document.addEventListener('keyup', (event) => {
-      const keyName = event.key;
-      document.getElementById('releasedKeyListener').textContent = `${keyName} (${event.code})`;
+      const message = `Key Up (Document Event Listener): ${event.key} (${event.code})`;
+      logEvent(message);
+    });
+
+    document.addEventListener('keypress', (event) => {
+      const message = `Key Press (Document Event Listener): ${event.key} (${event.code})`;
+      logEvent(message);
     });
 
     // Method 2: Using direct assignment (onkeydown and onkeyup)
     document.onkeydown = (event) => {
-      const keyName = event.key;
-      document.getElementById('pressedKeyDirect').textContent = `${keyName} (${event.code})`;
+      const message = `Key Down (Direct Assignment): ${event.key} (${event.code})`;
+      logEvent(message);
     };
 
-    // Method 3: Assigning listener to the window object
+    document.onkeyup = (event) => {
+      const message = `Key Up (Direct Assignment): ${event.key} (${event.code})`;
+      logEvent(message);
+    };
+
+    // Method 3: Using window events
+    window.onkeydown = (event) => {
+      const message = `Key Down (Window): ${event.key} (${event.code})`;
+      logEvent(message);
+    };
+
     window.onkeyup = (event) => {
-      const keyName = event.key;
-      document.getElementById('releasedKeyWindow').textContent = `${keyName} (${event.code})`;
+      const message = `Key Up (Window): ${event.key} (${event.code})`;
+      logEvent(message);
     };
 
-    // Deprecated method: keypress for legacy browsers
-    document.addEventListener('keypress', (event) => {
-      console.log('Key Press (Deprecated):', event.key);
+    // Method 4: Using deprecated methods
+    document.onkeypress = (event) => {
+      const message = `Key Press (Document Onkeypress): ${event.key} (${event.code})`;
+      logEvent(message);
+    };
+
+    window.onkeypress = (event) => {
+      const message = `Key Press (Window Onkeypress): ${event.key} (${event.code})`;
+      logEvent(message);
+    };
+
+    // Method 5: Using element-specific event listeners
+    const inputField = document.getElementById('inputField');
+    inputField.addEventListener('keydown', (event) => {
+      const message = `Key Down (Input Field): ${event.key} (${event.code})`;
+      logEvent(message);
+    });
+
+    inputField.addEventListener('keyup', (event) => {
+      const message = `Key Up (Input Field): ${event.key} (${event.code})`;
+      logEvent(message);
+    });
+
+    inputField.addEventListener('keypress', (event) => {
+      const message = `Key Press (Input Field): ${event.key} (${event.code})`;
+      logEvent(message);
+    });
+
+    // Method 6: Using other events
+    document.oninput = (event) => {
+      const message = `Input Event (Document Oninput): ${event.target.value}`;
+      logEvent(message);
+    };
+
+    document.onchange = (event) => {
+      const message = `Change Event (Document Onchange): ${event.target.value}`;
+      logEvent(message);
+    };
+
+    // Method 7: Using button events
+    const testButton = document.getElementById('testButton');
+    testButton.addEventListener('focus', () => {
+      logEvent('Button focused, press keys to log.');
+    });
+
+    testButton.addEventListener('keydown', (event) => {
+      const message = `Key Down (Button): ${event.key} (${event.code})`;
+      logEvent(message);
+    });
+
+    testButton.addEventListener('keyup', (event) => {
+      const message = `Key Up (Button): ${event.key} (${event.code})`;
+      logEvent(message);
+    });
+
+    testButton.addEventListener('keypress', (event) => {
+      const message = `Key Press (Button): ${event.key} (${event.code})`;
+      logEvent(message);
     });
   </script>
 </body>
